@@ -17,10 +17,6 @@ public class XSEventStoreSlidingWindowImpl extends AbstractXSEventStore {
 		this.parameters = parameters;
 	}
 
-	public Class<XSEvent> getTopic() {
-		return XSEvent.class;
-	}
-
 	protected void handleNextPacket(XSEvent packet) {
 		if (getWindow().size() > parameters.getSize()) {
 			getOutFlux().clear();

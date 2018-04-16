@@ -66,4 +66,8 @@ public abstract class AbstractXSEventStore extends AbstractXSReader<XSEvent, Lis
 		}
 	}
 
+	protected List<XSEvent> computeCurrentResult() {
+		return window;
+	}
+
 }
