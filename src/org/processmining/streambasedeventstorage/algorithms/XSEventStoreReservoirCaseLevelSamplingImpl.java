@@ -52,7 +52,10 @@ public class XSEventStoreReservoirCaseLevelSamplingImpl extends
 			if (caseShadow.get(index).equals(newCaseId)) {
 				getReservoir().get(index).add(e);
 				if (getReservoir().get(index).size() > getParameters().getMaxEntrySize()) {
-					getOutFlux().add(getReservoir().get(index).remove(0));
+					XSEvent del = getReservoir().get(index).remove(0);
+					getOutFlux().add(del);
+					getWindow().remove(del);
+					removeEventFromTrace(del, newCaseId);
 				}
 			} else {
 				String oldCaseId = caseShadow.get(index);
