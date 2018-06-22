@@ -7,19 +7,26 @@ import java.util.List;
 import java.util.Map;
 
 import org.processmining.eventstream.core.interfaces.XSEvent;
+import org.processmining.eventstream.readers.abstr.XSEventReaderParameters;
 import org.processmining.stream.core.abstracts.AbstractXSReader;
 import org.processmining.streambasedeventstorage.models.XSEventStore;
 
-public abstract class AbstractXSEventStore extends AbstractXSReader<XSEvent, List<XSEvent>, Object>
-		implements XSEventStore {
+public abstract class AbstractXSEventStore<P extends XSEventReaderParameters>
+		extends AbstractXSReader<XSEvent, List<XSEvent>, Object> implements XSEventStore {
 
 	private final List<XSEvent> influx = new ArrayList<>();
 	private final List<XSEvent> outflux = new ArrayList<>();
 	private final Map<String, List<XSEvent>> traces = new HashMap<>();
 	private final List<XSEvent> window = new ArrayList<>();
+	private final P parameters;
 
-	public AbstractXSEventStore(String name) {
+	public AbstractXSEventStore(String name, P parameters) {
 		super(name, null);
+		this.parameters = parameters;
+	}
+
+	public P getParameters() {
+		return parameters;
 	}
 
 	protected void addEventToTrace(XSEvent e, String caseIdentifier) {

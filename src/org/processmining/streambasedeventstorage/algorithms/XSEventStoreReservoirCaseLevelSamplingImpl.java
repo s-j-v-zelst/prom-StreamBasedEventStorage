@@ -15,7 +15,7 @@ public class XSEventStoreReservoirCaseLevelSamplingImpl extends
 	private List<String> caseShadow = new ArrayList<>();
 
 	public XSEventStoreReservoirCaseLevelSamplingImpl(XSEventStoreReservoirCaseLevelSamplingParametersImpl parameters) {
-		super(parameters);
+		super(parameters);		
 	}
 
 	protected void handleNextPacket(XSEvent packet) {

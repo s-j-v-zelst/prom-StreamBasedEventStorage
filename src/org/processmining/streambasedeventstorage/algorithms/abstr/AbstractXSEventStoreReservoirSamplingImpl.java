@@ -7,15 +7,13 @@ import java.util.Random;
 import org.processmining.streambasedeventstorage.parameters.XSEventStoreReservoirEventLevelSamplingParametersImpl;
 
 public abstract class AbstractXSEventStoreReservoirSamplingImpl<T1, T2 extends XSEventStoreReservoirEventLevelSamplingParametersImpl>
-		extends AbstractXSEventStore {
+		extends AbstractXSEventStore<T2> {
 
 	private final List<T1> reservoir = new ArrayList<>();
 	private final Random r;
-	private final T2 parameters;
 
-	public AbstractXSEventStoreReservoirSamplingImpl(T2 parameters) {
-		super("reservoir");
-		this.parameters = parameters;
+	public AbstractXSEventStoreReservoirSamplingImpl(final T2 parameters) {
+		super("reservoir", parameters);
 		r = parameters.isSeeded() ? new Random(parameters.getSeed()) : new Random();
 	}
 
@@ -25,10 +23,6 @@ public abstract class AbstractXSEventStoreReservoirSamplingImpl<T1, T2 extends X
 
 	public Random getRandom() {
 		return r;
-	}
-
-	public T2 getParameters() {
-		return parameters;
 	}
 
 }
